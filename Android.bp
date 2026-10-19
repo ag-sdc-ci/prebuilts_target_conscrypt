@@ -1,0 +1,96 @@
+package {
+    default_applicable_licenses: ["external_conscrypt_license"],
+}
+
+license {
+    name: "external_conscrypt_license",
+    visibility: [":__subpackages__"],
+    license_kinds: [
+        "SPDX-license-identifier-Apache-2.0",
+    ],
+    license_text: [
+        "LICENSE",
+    ],
+}
+
+prebuilt_apex {
+    name: "org.blisslabs.ag.ext.conscrypt",
+    apex_name: "org.blisslabs.ag.ext.conscrypt",
+    source_apex_name: "org.blisslabs.ag.ext.conscrypt",
+    arch: {
+        x86_64: {
+            src: "org.blisslabs.ag.ext.conscrypt.apex",
+        },
+    },
+    filename: "org.blisslabs.ag.ext.conscrypt.apex",
+}
+
+cc_prebuilt_library_shared {
+    name: "libconscrypt_openjdk_jni",
+    host_supported: true,
+    check_elf_files: false,
+    prefer: true,
+    arch: {
+        x86_64: {
+            srcs: ["lib64/libconscrypt_openjdk_jni.so"],
+        },
+        x86: {
+            srcs: ["lib/libconscrypt_openjdk_jni.so"],
+        },
+    },
+    apex_available: [
+        "com.android.conscrypt",
+        "//apex_available:platform",
+        "//apex_available:anyapex",
+    ],
+    visibility: ["//visibility:public"],
+}
+
+java_import {
+    name: "conscrypt-unbundled",
+    jars: ["share/conscrypt/conscrypt-unbundled.jar"],
+    host_supported: true,
+    prefer: true,
+}
+
+java_import {
+    name: "conscrypt-lite",
+    jars: ["share/conscrypt/conscrypt-lite.jar"],
+    host_supported: true,
+    prefer: true,
+}
+
+java_library {
+    name: "conscrypt",
+    hostdex: true,
+    installable: true,
+    sdk_version: "none",
+    system_modules: "none",
+    static_libs: ["conscrypt-unbundled"],
+    apex_available: [
+        "com.android.conscrypt",
+        "//apex_available:platform",
+        "//apex_available:anyapex",
+    ],
+    visibility: ["//visibility:public"],
+}
+
+filegroup {
+    name: "conscrypt_java_files",
+    visibility: ["//visibility:public"],
+    srcs: ["Empty.java"],
+}
+
+filegroup {
+    name: "conscrypt_public_api_files",
+    visibility: ["//visibility:public"],
+    srcs: ["Empty.java"],
+}
+
+java_library {
+    name: "conscrypt-for-host",
+    visibility: ["//visibility:public"],
+    static_libs: ["conscrypt"],
+    sdk_version: "none",
+    system_modules: "none",
+}
