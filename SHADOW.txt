@@ -1,6 +1,6 @@
 shadow prebuilt repo: conscrypt (target, extractive payload)
   upstream: platform/external/conscrypt
   api-level: 34 (branch 34-20261019)
-  blobs: org.blisslabs.ag.ext.conscrypt.apex
+  blobs: org.blisslabs.ag.ext.conscrypt.apex com.android.conscrypt.apex
   dev-src: extracted base payload + regenerated root Android.bp
   date: 2026-10-19

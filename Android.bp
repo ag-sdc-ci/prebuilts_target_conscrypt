@@ -14,6 +14,20 @@ license {
 }
 
 prebuilt_apex {
+    name: "com.android.conscrypt",
+    apex_name: "com.android.conscrypt",
+    source_apex_name: "com.android.conscrypt",
+    arch: {
+        x86_64: {
+            src: "com.android.conscrypt.apex",
+        },
+    },
+    filename: "com.android.conscrypt.apex",
+    prefer: true,
+    installable: true,
+}
+
+prebuilt_apex {
     name: "org.blisslabs.ag.ext.conscrypt",
     apex_name: "org.blisslabs.ag.ext.conscrypt",
     source_apex_name: "org.blisslabs.ag.ext.conscrypt",
