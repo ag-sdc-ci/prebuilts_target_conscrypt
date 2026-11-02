@@ -19,10 +19,12 @@ prebuilt_apex {
     source_apex_name: "com.android.conscrypt",
     arch: {
         x86_64: {
-            src: "com.android.conscrypt.apex",
+            src: "org.blisslabs.ag.ext.conscrypt.apex",
         },
     },
     filename: "com.android.conscrypt.apex",
+    exported_bootclasspath_fragments: ["com.android.conscrypt-bootclasspath-fragment"],
+    exported_java_libs: ["conscrypt"],
     prefer: true,
     installable: true,
 }
@@ -65,6 +67,13 @@ java_import {
     jars: ["share/conscrypt/conscrypt-unbundled.jar"],
     host_supported: true,
     prefer: true,
+    sdk_version: "core_current",
+    min_sdk_version: "29",
+    apex_available: [
+        "com.android.conscrypt",
+        "//apex_available:platform",
+        "//apex_available:anyapex",
+    ],
 }
 
 java_import {
@@ -72,15 +81,22 @@ java_import {
     jars: ["share/conscrypt/conscrypt-lite.jar"],
     host_supported: true,
     prefer: true,
+    sdk_version: "core_current",
+    min_sdk_version: "29",
+    apex_available: [
+        "com.android.conscrypt",
+        "//apex_available:platform",
+        "//apex_available:anyapex",
+    ],
 }
 
-java_library {
+java_import {
     name: "conscrypt",
-    hostdex: true,
-    installable: true,
+    jars: ["share/conscrypt/conscrypt-unbundled.jar"],
+    host_supported: true,
     sdk_version: "none",
-    system_modules: "none",
-    static_libs: ["conscrypt-unbundled"],
+    min_sdk_version: "29",
+    prefer: true,
     apex_available: [
         "com.android.conscrypt",
         "//apex_available:platform",
@@ -107,4 +123,27 @@ java_library {
     static_libs: ["conscrypt"],
     sdk_version: "none",
     system_modules: "none",
+}
+
+// -----------------------------------------------------------------------------
+// Core Crypto Java API Libraries
+// -----------------------------------------------------------------------------
+
+java_sdk_library_import {
+    name: "conscrypt.module.public.api",
+    prefer: true,
+    shared_library: false,
+    public: {
+        jars: ["share/conscrypt/conscrypt-public.jar"],
+        sdk_version: "none",
+    },
+    system: {
+        jars: ["share/conscrypt/conscrypt-system.jar"],
+        sdk_version: "none",
+    },
+    module_lib: {
+        jars: ["share/conscrypt/conscrypt-module-lib.jar"],
+        sdk_version: "none",
+    },
+    visibility: ["//visibility:public"],
 }
