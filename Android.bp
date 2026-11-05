@@ -147,3 +147,18 @@ java_sdk_library_import {
     },
     visibility: ["//visibility:public"],
 }
+
+java_import {
+    name: "conscrypt.module.platform.api.stubs",
+    jars: ["share/conscrypt/conscrypt-coreplatform.jar"],
+    sdk_version: "none",
+    visibility: ["//visibility:public"],
+}
+
+java_import {
+    name: "conscrypt.module.platform.api.stubs.exportable",
+    jars: ["share/conscrypt/conscrypt-coreplatform.jar"],
+    sdk_version: "none",
+    visibility: ["//visibility:public"],
+}
+
